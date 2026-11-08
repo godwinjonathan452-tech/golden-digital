@@ -13,7 +13,7 @@
     <a class="brand" href="#home" aria-label="Golden Digital home">
       <span class="brand-mark">G</span><span>GOLDEN<span class="gold"> DIGITAL</span></span>
     </a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <button class="men u-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
     <nav id="mainNav">
       <a href="#features">Features</a>
       <a href="#studio">Marketing Studio</a>
@@ -107,5 +107,441 @@
 
   <footer><a class="brand" href="#home"><span class="brand-mark">G</span><span>GOLDEN<span class="gold"> DIGITAL</span></span></a><span>© <span id="year"></span> GOLDEN DIGITAL. Built step by step.</span><a href="#home">Back to top ↑</a></footer>
   <script src="app.js"></script>
+  <!-- GOLDEN DIGITAL VIDEO ADVERTISEMENT STUDIO -->
+<style>
+.video-studio {
+    padding: 65px 20px;
+    background: #101010;
+    color: white;
+    text-align: center;
+}
+
+.video-studio h2 {
+    color: #d4af37;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.video-studio .studio-intro {
+    color: #bbb;
+    margin-bottom: 30px;
+}
+
+.video-card {
+    max-width: 650px;
+    margin: auto;
+    padding: 25px;
+    background: #1c1c1c;
+    border: 1px solid #8b7026;
+    border-radius: 16px;
+    text-align: left;
+}
+
+.video-card label {
+    display: block;
+    margin: 15px 0 7px;
+    color: #e4c65a;
+}
+
+.video-card input,
+.video-card textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background: #292929;
+    color: white;
+    box-sizing: border-box;
+}
+
+.video-card input[type="file"] {
+    padding: 10px;
+}
+
+.video-card button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f5d76e, #b68b20);
+    color: #171717;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.video-card button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.video-preview {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 25px auto;
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    background: black;
+}
+
+.video-status {
+    color: #e4c65a;
+    text-align: center;
+    margin-top: 15px;
+    overflow-wrap: anywhere;
+}
+
+.video-download {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #f5d76e;
+    font-weight: bold;
+}
+</style>
+
+<section class="video-studio" id="video-studio">
+
+    <h2>GOLDEN VIDEO STUDIO</h2>
+
+    <p class="studio-intro">
+        Turn your product photos into promotional videos.
+    </p>
+
+    <div class="video-card">
+
+        <label>Upload Product Photo</label>
+        <input type="file" id="goldPhoto" accept="image/*">
+
+        <label>Product or Business Name</label>
+        <input type="text" id="goldName"
+               placeholder="Enter product name">
+
+        <label>Product Price</label>
+        <input type="text" id="goldPrice"
+               placeholder="Example: ₦25,000">
+
+        <label>Product Description</label>
+        <textarea id="goldDescription" rows="3"
+                  placeholder="Describe your product..."></textarea>
+
+        <label>Contact Information</label>
+        <input type="text" id="goldContact"
+               placeholder="Phone number or social media">
+
+        <button id="goldGenerate">
+            CREATE MY VIDEO ADVERTISEMENT
+        </button>
+
+        <p class="video-status" id="goldStatus">
+            Your advertisement will appear here.
+        </p>
+
+        <canvas id="goldCanvas" class="video-preview"
+                width="720" height="1280"
+                style="display:none;"></canvas>
+
+        <video id="goldVideo" class="video-preview"
+               controls playsinline
+               style="display:none;"></video>
+
+        <a id="goldDownload" class="video-download"
+           style="display:none;">
+            DOWNLOAD YOUR VIDEO
+        </a>
+
+    </div>
+</section>
+
+<script>
+(function () {
+
+    const photoInput = document.getElementById("goldPhoto");
+    const generateButton = document.getElementById("goldGenerate");
+    const status = document.getElementById("goldStatus");
+    const canvas = document.getElementById("goldCanvas");
+    const ctx = canvas.getContext("2d");
+    const video = document.getElementById("goldVideo");
+    const download = document.getElementById("goldDownload");
+
+    let selectedImage = null;
+    let imageURL = null;
+    let downloadURL = null;
+
+    photoInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            status.textContent = "Please select an image.";
+            return;
+        }
+
+        if (imageURL) URL.revokeObjectURL(imageURL);
+
+        imageURL = URL.createObjectURL(file);
+        selectedImage = new Image();
+
+        selectedImage.onload = function () {
+            status.textContent = "Product photo uploaded successfully!";
+        };
+
+        selectedImage.onerror = function () {
+            status.textContent = "Unable to load this image.";
+        };
+
+        selectedImage.src = imageURL;
+    });
+
+    function roundedBox(x, y, w, h, radius, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + w - radius, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+        ctx.lineTo(x + w, y + h - radius);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+        ctx.lineTo(x + radius, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function drawAdvertisement(elapsed) {
+
+        const w = canvas.width;
+        const h = canvas.height;
+
+        const name =
+            document.getElementById("goldName").value.trim()
+            || "Amazing Product";
+
+        const price =
+            document.getElementById("goldPrice").value.trim();
+
+        const description =
+            document.getElementById("goldDescription").value.trim();
+
+        const contact =
+            document.getElementById("goldContact").value.trim();
+
+        const background = ctx.createLinearGradient(0, 0, w, h);
+        background.addColorStop(0, "#171717");
+        background.addColorStop(0.5, "#30240b");
+        background.addColorStop(1, "#090909");
+
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.textAlign = "center";
+
+        ctx.fillStyle = "#e6c45c";
+        ctx.font = "bold 35px Arial";
+        ctx.fillText("GOLDEN DIGITAL", w / 2, 90);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 48px Arial";
+        ctx.fillText("SPECIAL OFFER", w / 2, 175);
+
+        // Product image
+
+        roundedBox(45, 230, 630, 580, 25, "#ffffff");
+
+        if (selectedImage) {
+
+            const maxW = 570;
+            const maxH = 520;
+
+            const scale = Math.min(
+                maxW / selectedImage.width,
+                maxH / selectedImage.height
+            );
+
+            const imgW = selectedImage.width * scale;
+            const imgH = selectedImage.height * scale;
+
+            const x = (w - imgW) / 2;
+            const y = 260 + (500 - imgH) / 2;
+
+            ctx.drawImage(selectedImage, x, y, imgW, imgH);
+        }
+
+        // Product name
+
+        ctx.fillStyle = "#f4d36c";
+        ctx.font = "bold 43px Arial";
+
+        const displayName = name.length > 24
+            ? name.substring(0, 21) + "..."
+            : name;
+
+        ctx.fillText(displayName, w / 2, 890);
+
+        // Description
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "25px Arial";
+
+        if (description) {
+            const shortDescription = description.substring(0, 65);
+            ctx.fillText(shortDescription, w / 2, 950);
+        }
+
+        // Price
+
+        if (price) {
+            roundedBox(150, 1000, 420, 90, 18, "#d4af37");
+
+            ctx.fillStyle = "#171717";
+            ctx.font = "bold 38px Arial";
+            ctx.fillText(price, w / 2, 1058);
+        }
+
+        // Contact
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "26px Arial";
+        ctx.fillText(
+            contact ? "CONTACT: " + contact : "CONTACT US TODAY",
+            w / 2,
+            1165
+        );
+
+        ctx.fillStyle = "#d4af37";
+        ctx.font = "bold 24px Arial";
+        ctx.fillText("YOUR BUSINESS. OUR TECHNOLOGY.", w / 2, 1230);
+
+        // Subtle animation
+
+        ctx.fillStyle = "rgba(255,255,255,0.18)";
+        const shineX = (elapsed * 90) % (w + 200) - 100;
+        ctx.fillRect(shineX, 220, 5, 610);
+    }
+
+    generateButton.addEventListener("click", async function () {
+
+        if (!selectedImage) {
+            status.textContent = "Please upload a product photo first.";
+            return;
+        }
+
+        if (!document.getElementById("goldName").value.trim()) {
+            status.textContent = "Please enter your product name.";
+            return;
+        }
+
+        if (!window.MediaRecorder || !canvas.captureStream) {
+            status.textContent =
+                "Your browser does not support video recording. Try an updated Chrome browser.";
+            return;
+        }
+
+        const mimeTypes = [
+            "video/webm;codecs=vp9",
+            "video/webm;codecs=vp8",
+            "video/webm"
+        ];
+
+        const mimeType = mimeTypes.find(type =>
+            MediaRecorder.isTypeSupported(type)
+        );
+
+        if (!mimeType) {
+            status.textContent =
+                "Video export is not supported by this browser.";
+            return;
+        }
+
+        generateButton.disabled = true;
+        video.style.display = "none";
+        download.style.display = "none";
+
+        status.textContent = "Creating your advertisement...";
+
+        const stream = canvas.captureStream(30);
+        const chunks = [];
+
+        let recorder;
+
+        try {
+            recorder = new MediaRecorder(stream, {
+                mimeType: mimeType
+            });
+        } catch (error) {
+            stream.getTracks().forEach(track => track.stop());
+            generateButton.disabled = false;
+            status.textContent = "Could not start video recording.";
+            return;
+        }
+
+        recorder.ondataavailable = function (event) {
+            if (event.data && event.data.size > 0) {
+                chunks.push(event.data);
+            }
+        };
+
+        recorder.onerror = function () {
+            status.textContent = "An error occurred while recording.";
+            generateButton.disabled = false;
+            stream.getTracks().forEach(track => track.stop());
+        };
+
+        recorder.onstop = function () {
+
+            stream.getTracks().forEach(track => track.stop());
+
+            const blob = new Blob(chunks, { type: mimeType });
+
+            if (downloadURL) URL.revokeObjectURL(downloadURL);
+
+            downloadURL = URL.createObjectURL(blob);
+
+            video.src = downloadURL;
+            video.style.display = "block";
+
+            download.href = downloadURL;
+            download.download = "golden-digital-advertisement.webm";
+            download.style.display = "block";
+
+            status.textContent =
+                "Your video advertisement is ready!";
+
+            generateButton.disabled = false;
+        };
+
+        const startTime = performance.now();
+
+        function animate(now) {
+            const elapsed = (now - startTime) / 1000;
+
+            drawAdvertisement(elapsed);
+
+            if (elapsed < 8 && recorder.state === "recording") {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        drawAdvertisement(0);
+        recorder.start();
+
+        requestAnimationFrame(animate);
+
+        setTimeout(function () {
+            if (recorder.state === "recording") {
+                recorder.stop();
+            }
+        }, 8000);
+
+    });
+
+})();
+</script>
+<!-- END GOLDEN DIGITAL VIDEO STUDIO -->
 </body>
 </html>
