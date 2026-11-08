@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101014">
+  <meta name="description" content="GOLDEN DIGITAL — tools to help businesses market, promote and grow.">
+  <title>GOLDEN DIGITAL — Grow beyond limits</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Golden Digital home">
+      <span class="brand-mark">G</span><span>GOLDEN<span class="gold"> DIGITAL</span></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav id="mainNav">
+      <a href="#features">Features</a>
+      <a href="#studio">Marketing Studio</a>
+      <a href="#marketplace">Marketplace</a>
+      <a href="#about">About</a>
+      <a class="nav-cta" href="#studio">Get started</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> THE DIGITAL BUSINESS ECOSYSTEM</div>
+        <h1>Turn your ideas<br>into <span class="gold">growth.</span></h1>
+        <p class="hero-text">A place for entrepreneurs to create better promotions, showcase what they offer and grow their businesses.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#studio">Try Marketing Studio <span>↗</span></a>
+          <a class="button button-quiet" href="#features">Explore the platform</a>
+        </div>
+        <div class="trust-line"><span class="trust-dot"></span> Built for creators, entrepreneurs and growing businesses</div>
+      </div>
+      <div class="hero-visual" aria-label="Abstract digital growth illustration">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="glow"></div>
+        <div class="hero-card card-top"><span class="mini-icon">✦</span><div><b>Ideas to action</b><small>Make your next move count</small></div></div>
+        <div class="main-emblem"><span>G</span><i>✦</i></div>
+        <div class="hero-card card-bottom"><span class="chart-icon">↗</span><div><b>Growth starts here</b><small>Your business, moving forward</small></div></div>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Platform principles">
+      <div><strong>01</strong><span>Create</span><small>Marketing content</small></div>
+      <div><strong>02</strong><span>Promote</span><small>Showcase your offer</small></div>
+      <div><strong>03</strong><span>Grow</span><small>Build your business</small></div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-heading">
+        <div class="eyebrow">ONE CONNECTED PLATFORM</div>
+        <h2>Everything begins with<br><span class="gold">a better way to grow.</span></h2>
+        <p>GOLDEN DIGITAL is being built in stages. These are the core areas planned for the platform.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon">✧</div><h3>AI Marketing Studio</h3><p>Prepare promotional ideas, captions and campaign drafts for your products or services.</p><span class="status">STARTER PREVIEW</span></article>
+        <article class="feature-card"><div class="feature-icon">▦</div><h3>Business Marketplace</h3><p>A future space where businesses can list products and services for customers to discover.</p><span class="status status-planned">PLANNED</span></article>
+        <article class="feature-card"><div class="feature-icon">↗</div><h3>Promotion Tools</h3><p>Plan how to present an offer and reach the right audience with clear messaging.</p><span class="status status-planned">PLANNED</span></article>
+        <article class="feature-card"><div class="feature-icon">◎</div><h3>Business Insights</h3><p>Understand engagement and performance as real platform data becomes available.</p><span class="status status-planned">PLANNED</span></article>
+      </div>
+    </section>
+
+    <section class="studio-section" id="studio">
+      <div class="studio-intro">
+        <div class="eyebrow">YOUR FIRST TOOL</div>
+        <h2>Meet the <span class="gold">Marketing Studio.</span></h2>
+        <p>Try a simple promotional copy builder. This first version uses built-in templates in your browser; it does not yet connect to an AI service.</p>
+        <ul><li>Works on your phone</li><li>No account needed for this preview</li><li>No payment or API key required</li></ul>
+      </div>
+      <div class="studio-panel">
+        <div class="panel-top"><div><span class="panel-dot"></span><b>GOLDEN / MARKETING STUDIO</b></div><span class="preview-label">BETA PREVIEW</span></div>
+        <label for="businessName">Business or product name</label>
+        <input id="businessName" type="text" placeholder="e.g. G&D Creation">
+        <label for="productType">What are you promoting?</label>
+        <select id="productType">
+          <option value="product">A product</option>
+          <option value="service">A service</option>
+          <option value="event">An event or offer</option>
+        </select>
+        <label for="audience">Who is it for?</label>
+        <input id="audience" type="text" placeholder="e.g. people who love stylish clothing">
+        <label for="details">What makes it special?</label>
+        <textarea id="details" rows="3" placeholder="Add the main benefit, price or important details..."></textarea>
+        <button class="button button-primary generate-button" id="generateBtn">Create promotional draft <span>✦</span></button>
+        <div class="result-box" id="resultBox" aria-live="polite">
+          <div class="result-placeholder">Your promotional draft will appear here.</div>
+        </div>
+        <button class="copy-button" id="copyBtn" hidden>Copy draft</button>
+        <p class="micro-note">Preview only: check all details before publishing. No sales or reach are guaranteed.</p>
+      </div>
+    </section>
+
+    <section class="marketplace-section" id="marketplace">
+      <div><div class="eyebrow">COMING IN A FUTURE VERSION</div><h2>A place for good<br><span class="gold">business to be found.</span></h2><p>We plan to add business profiles, product listings, discovery and secure payment integrations after the first version is tested.</p></div>
+      <div class="marketplace-preview"><div class="mock-search">⌕ <span>Discover products and services</span></div><div class="mock-listing"><div class="mock-image">✦</div><div><b>Your business listing</b><small>Show customers what you offer</small><span class="listing-tag">Marketplace feature planned</span></div></div><div class="mock-listing"><div class="mock-image image-two">◇</div><div><b>Your next customer</b><small>Help people discover your work</small><span class="listing-tag">Marketplace feature planned</span></div></div></div>
+    </section>
+
+    <section class="founder-section" id="about">
+      <div class="founder-mark">G</div>
+      <div><div class="eyebrow">THE VISION</div><h2>Built with ambition.<br><span class="gold">Designed for growth.</span></h2><p>GOLDEN DIGITAL is an independent project founded by Godwin Jonathan, with a mission to make practical digital business tools more accessible.</p><div class="founder-credit">FOUNDED BY <b>GODWIN JONATHAN</b></div></div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#home"><span class="brand-mark">G</span><span>GOLDEN<span class="gold"> DIGITAL</span></span></a><span>© <span id="year"></span> GOLDEN DIGITAL. Built step by step.</span><a href="#home">Back to top ↑</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>
